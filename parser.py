@@ -14,7 +14,7 @@ class StopLight(object):
         self.s_intersection = s_intersection
         self.s_street = s_street
         self.s_cars = s_cars
-        self.stoplights = []
+        self.schedule = []
 
     def add_car(self, car):
         self.s_cars.append(car)
@@ -22,8 +22,9 @@ class StopLight(object):
     def String(self):
         print("intersection", self.s_intersection, "street", self.s_street, "cars", self.s_cars)
 
-    def add_stoplight(self, stoplight):
-        stoplights.append(stoplight)
+    def add_schedule(self, street, time):
+        self.schedule.append((street, time))
+
 
 
 class Car(object):
@@ -39,12 +40,16 @@ class Intersection(object):
         self.name = name
         self.to_street = []
         self.from_street = []
+        self.stoplights = []
 
     def add_to(self, street):
         self.to_street.append(street)
 
     def add_from(self, street):
         self.from_street.append(street)
+
+    def add_stoplight(self, stoplight):
+        self.stoplights.append(stoplight)
 
     def String(self):
         print("intersection", self.name, "from:", self.from_street, "to", self.to_street)
