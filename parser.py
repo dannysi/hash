@@ -14,12 +14,16 @@ class StopLight(object):
         self.s_intersection = s_intersection
         self.s_street = s_street
         self.s_cars = s_cars
+        self.stoplights = []
 
     def add_car(self, car):
         self.s_cars.append(car)
 
     def String(self):
         print("intersection", self.s_intersection, "street", self.s_street, "cars", self.s_cars)
+
+    def add_stoplight(self, stoplight):
+        stoplights.append(stoplight)
 
 
 class Car(object):
@@ -68,7 +72,7 @@ def read_from_file(file):
 
     stoplights = init_stoplights(streets, cars, intersections)
 
-    return (streets, cars, intersections, score, stoplights)
+    return streets, cars, intersections, score, stoplights
 
 
 def init_stoplights(i_streets, i_cars, i_intersections):
@@ -83,7 +87,9 @@ def init_stoplights(i_streets, i_cars, i_intersections):
 
     for inters in i_intersections:
         for from_street in inters.from_street:
-            stoplights.append(StopLight(inters, from_street, t_streets[from_street]))
+            stoplight = StopLight(inters, from_street, t_streets[from_street])
+            stoplights.append(stoplight)
+            inters.add_stoplight(stoplight)
     return stoplights
 
 
@@ -98,3 +104,4 @@ for intersection in intersections:
 
 for stoplight in stoplights:
     stoplight.String()
+
