@@ -24,6 +24,7 @@ class StopLight(object):
 
 class Car(object):
     def __init__(self,id , route):
+        self.id = id
         self.route = route
 
     def String(self):
@@ -37,6 +38,7 @@ class Intersection(object):
         self.from_street = []
         self.stoplights = []
         self.schedule = []
+        self.max_time = 0
 
     def add_to(self, street):
         self.to_street.append(street)
@@ -50,11 +52,23 @@ class Intersection(object):
     def String(self):
         print("intersection", self.name, "from:", self.from_street, "to", self.to_street)
 
-    def add_schedule(self, street, time):
-        self.schedule.append((street, str(time)))
+    def add_schedule(self, stoplight:StopLight, time):
+        self.schedule.append((stoplight, time))
+        self.max_time += time
 
     def solution(self):
-        return [str(self.name)+"\n", str(len(self.schedule))+"\n"] + [sch[0]+" "+ sch[1]+"\n" for sch in self.schedule]
+        return [str(self.name)+"\n", str(len(self.schedule))+"\n"] + [stoplight+" "+ str(time)+"\n" for stoplight, time in self.schedule]
+
+    def get_green(self, duration):
+        for sch in self.schedule:
+            stoplight, time = sch
+            if duration - time < 0 :
+                return stoplight.s_street
+            else:
+                duration -= time
+
+
+
 
 
 def read_from_file(file):
@@ -102,9 +116,6 @@ def init_stoplights(i_streets, i_cars, i_intersections):
 
 streets, cars, intersections, score, stoplights, time = read_from_file("a.txt")
 
-
-
-
 def write_solution(file, intersections):
     f = open(file, 'w')
     to_write = [str(len(intersections))+"\n"]
@@ -115,5 +126,9 @@ def write_solution(file, intersections):
 
 intersections[0].add_schedule(streets[0].name, 3)
 write_solution("bb.txt", intersections)
+
+def randomize(intersections, ):
+
+
 
 
