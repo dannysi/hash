@@ -79,7 +79,7 @@ def read_from_file(file):
 
     stoplights = init_stoplights(streets, cars, intersections)
 
-    return streets, cars, intersections, score, stoplights
+    return streets, cars, intersections, score, stoplights, time
 
 
 def init_stoplights(i_streets, i_cars, i_intersections):
@@ -100,17 +100,8 @@ def init_stoplights(i_streets, i_cars, i_intersections):
     return stoplights
 
 
-streets, cars, intersections, score, stoplights = read_from_file("a.txt")
+streets, cars, intersections, score, stoplights, time = read_from_file("a.txt")
 
-for street in streets:
-    street.String()
-for car in cars:
-    car.String()
-for intersection in intersections:
-    intersection.String()
-
-for stoplight in stoplights:
-    stoplight.String()
 
 
 
