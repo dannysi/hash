@@ -14,17 +14,12 @@ class StopLight(object):
         self.s_intersection = s_intersection
         self.s_street = s_street
         self.s_cars = s_cars
-        self.schedule = []
 
     def add_car(self, car):
         self.s_cars.append(car)
 
     def String(self):
         print("intersection", self.s_intersection, "street", self.s_street, "cars", self.s_cars)
-
-    def add_schedule(self, street, time):
-        self.schedule.append((street, time))
-
 
 
 class Car(object):
@@ -41,6 +36,7 @@ class Intersection(object):
         self.to_street = []
         self.from_street = []
         self.stoplights = []
+        self.schedule = []
 
     def add_to(self, street):
         self.to_street.append(street)
@@ -53,6 +49,12 @@ class Intersection(object):
 
     def String(self):
         print("intersection", self.name, "from:", self.from_street, "to", self.to_street)
+
+    def add_schedule(self, street, time):
+        self.schedule.append((street, str(time)))
+
+    def solution(self):
+        return [str(self.name)+"\n", str(len(self.schedule))+"\n"] + [sch[0]+" "+ sch[1]+"\n" for sch in self.schedule]
 
 
 def read_from_file(file):
@@ -109,4 +111,18 @@ for intersection in intersections:
 
 for stoplight in stoplights:
     stoplight.String()
+
+
+
+def write_solution(file, intersections):
+    f = open(file, 'w')
+    to_write = [str(len(intersections))+"\n"]
+    for intersection in intersections:
+        to_write += intersection.solution()
+    print(to_write)
+    f.writelines(to_write)
+
+intersections[0].add_schedule(streets[0].name, 3)
+write_solution("bb.txt", intersections)
+
 
