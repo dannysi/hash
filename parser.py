@@ -23,7 +23,7 @@ class StopLight(object):
 
 
 class Car(object):
-    def __init__(self, route):
+    def __init__(self,id , route):
         self.route = route
 
     def String(self):
@@ -56,9 +56,9 @@ def read_from_file(file):
         from_int, to_int, name, length = f.readline().split()
         streets.append(Street(int(from_int), int(to_int), name, int(length)))
 
-    for _ in range(int(cars_len)):
+    for i in range(int(cars_len)):
         _, route = f.readline().split(maxsplit=1)
-        cars.append(Car(route.split()))
+        cars.append(Car(i, route.split()))
     intersections = []
     for i in range(int(intersection_len)):
         intersections.append(Intersection(i))
